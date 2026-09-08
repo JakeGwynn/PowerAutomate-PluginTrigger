@@ -1,0 +1,12 @@
+{
+  "//": "One dedicated marker table + one dedicated privilege per consumer, enforced entirely by Dataverse's ExecutePrivilegeName + Security Role before RunFlowDispatcher ever runs (zero plugin code). To add a new consumer, copy a block below and change 'id' (letters/digits only) - append to the END of the list, don't reorder/delete from the middle. Re-run Deploy-FlowTriggerSolution.ps1 - it is idempotent and will only create what's missing. Every name below assumes the default '-PublisherPrefix flowtrig'.",
+  "consumers": [
+    { "id": "Default", "description": "Default/shared endpoint - flowtrig_RunFlow (caller) / flowtrig_OnFlowRequested (event)." },
+    { "id": "TeamA",   "description": "flowtrig_RunFlow_TeamA / flowtrig_OnFlowRequested_TeamA, own 'Flow Trigger Caller - TeamA' role + own flowtrig_ep_teama marker table." },
+    { "id": "TeamB",   "description": "flowtrig_RunFlow_TeamB / flowtrig_OnFlowRequested_TeamB, own 'Flow Trigger Caller - TeamB' role + own flowtrig_ep_teamb marker table." },
+    { "id": "TeamC",   "description": "flowtrig_RunFlow_TeamC / flowtrig_OnFlowRequested_TeamC, own 'Flow Trigger Caller - TeamC' role + own flowtrig_ep_teamc marker table." },
+    { "id": "TeamD",   "description": "flowtrig_RunFlow_TeamD / flowtrig_OnFlowRequested_TeamD, own 'Flow Trigger Caller - TeamD' role + own flowtrig_ep_teamd marker table." },
+    { "id": "TeamE",   "description": "flowtrig_RunFlow_TeamE / flowtrig_OnFlowRequested_TeamE, own 'Flow Trigger Caller - TeamE' role + own flowtrig_ep_teame marker table." }
+  ]
+}
+

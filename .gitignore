@@ -1,0 +1,29 @@
+# .NET build output
+[Bb]in/
+[Oo]bj/
+*.user
+
+# Strong name key - regenerated per machine by plugin/New-StrongNameKey.ps1
+# (also runs automatically on build). Not security-sensitive, just not
+# meaningful to version.
+*.snk
+
+# Editor/OS noise
+.vs/
+Thumbs.db
+.DS_Store
+
+# Local-only overrides you don't want to accidentally commit
+deploy/*.local.json
+
+# One-off load/perf test output - point-in-time empirical data, not solution source
+deploy/load-test-results.csv
+deploy/split-load-test-results.csv
+deploy/flow-run-history*.json
+deploy/runs-*.json
+deploy/*-analysis.csv
+deploy/flowresult-rows.csv
+deploy/ab-trial*.csv
+deploy/ab2-trial*.csv
+deploy/control-test-*.csv
+deploy/dual-subscriber-test.csv
