@@ -1,0 +1,11 @@
+# .NET build output (this folder's own copy of the plugin project)
+[Bb]in/
+[Oo]bj/
+*.user
+
+# Strong name key - regenerated per machine, same as ../plugin's own key.
+*.snk
+
+# Load-test output - point-in-time empirical data, not solution source
+deploy/*.csv
+deploy/perftest-flow-runs*.json

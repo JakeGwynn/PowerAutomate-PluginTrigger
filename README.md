@@ -10,6 +10,7 @@ model back into a single request/response for the caller.
 
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — component reference, Custom API field values, and the two-stage plug-in transaction design.
 - [docs/PERMISSIONS.md](docs/PERMISSIONS.md) — caller-access models, trigger-picker visibility controls, and security notes.
+- [docs/PERFORMANCE.md](docs/PERFORMANCE.md) — expected latency, concurrency limits, and how to scale beyond a single calling identity.
 
 ## Goal
 
@@ -91,6 +92,12 @@ deploy/
 docs/
   ARCHITECTURE.md                Component reference, Custom API field values, and the two-stage plug-in design
   PERMISSIONS.md                 Caller vs Maker access model, trigger-picker visibility controls, and security notes
+  PERFORMANCE.md                 Expected latency, concurrency limits, and how to scale beyond a single calling identity
+
+perf-testing/                     Isolated, instrumented copy of the plug-in and deploy scripts used to
+                                  measure exactly where round-trip latency goes under concurrent load.
+                                  Never modifies anything above. See perf-testing/README.md for the full
+                                  methodology and docs/PERFORMANCE.md for the findings.
 ```
 
 ## Prerequisites
@@ -175,6 +182,11 @@ lands at/near whatever `PollBudget` is configured instead, re-check that
 `RunFlowDispatcher` is genuinely registered at PreValidation (stage 10) and not bound
 as the Custom API's `PluginTypeId`; see
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#two-stage-plug-in-design).
+
+Latency grows under high *concurrent* load from a single calling identity — this is a
+Dataverse per-identity service protection limit, not a fault in this pattern, and is
+resolved by distributing calls across multiple calling identities. See
+[docs/PERFORMANCE.md](docs/PERFORMANCE.md) for measured numbers and guidance.
 
 ## Troubleshooting
 

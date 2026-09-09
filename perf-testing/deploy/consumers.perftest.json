@@ -1,0 +1,6 @@
+{
+  "//": "Perf-testing-only consumer registry - a single 'Default' consumer is enough to run the load test and phase-breakdown analysis. Deployed under its own publisher prefix (default 'flowperf'), fully separate from the main deploy/consumers.json / production deployment.",
+  "consumers": [
+    { "id": "Default", "description": "Perf-testing endpoint - flowperf_RunFlow (caller) / flowperf_OnFlowRequested (event), instrumented plug-in copy." }
+  ]
+}

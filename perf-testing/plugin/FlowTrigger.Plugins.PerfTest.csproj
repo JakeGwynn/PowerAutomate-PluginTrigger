@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    PERF-TESTING COPY of ..\..\plugin\FlowTrigger.Plugins.csproj - compiles the
+    telemetry-instrumented plugin (RunFlowDispatcherTelemetry.cs +
+    RunFlowMainOperationTelemetry.cs) into its own separate assembly, so the
+    real FlowTrigger.Plugins.dll used by ..\..\plugin\ and ..\..\deploy\ is
+    never touched or rebuilt by anything in this folder.
+
+    Same signing requirement as the original: Dataverse plug-in assemblies
+    must be strong-name signed. FlowTrigger.Plugins.snk is generated
+    automatically (via New-StrongNameKey.ps1, copied unchanged into this
+    folder) and is .gitignored, matching the original project's approach.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <AssemblyName>FlowTrigger.Plugins.PerfTest</AssemblyName>
+    <RootNamespace>FlowTrigger.Plugins.PerfTest</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>FlowTrigger.Plugins.snk</AssemblyOriginatorKeyFile>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Deterministic>true</Deterministic>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.51" />
+  </ItemGroup>
+
+  <Target Name="EnsureStrongNameKey" BeforeTargets="CoreCompile" Condition="!Exists('$(MSBuildProjectDirectory)\FlowTrigger.Plugins.snk')">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\New-StrongNameKey.ps1&quot;" />
+  </Target>
+
+</Project>
